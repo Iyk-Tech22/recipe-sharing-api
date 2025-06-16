@@ -1,5 +1,5 @@
 const express = require('express');
-const morgan = require('express');
+const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
@@ -23,3 +23,5 @@ app.use('/api', limiter);
 app.use(mongoSanitize());
 app.use(xss());
 app.use(compression());
+
+module.exports = app;
