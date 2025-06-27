@@ -1,0 +1,17 @@
+extends baseEmail
+
+block content
+    p Hi #{firstName},
+    p Welcome to Recipe Share, we're glad to have you 🎉🙏
+    p Thanks for signing up with Recipe Share! You must follow this link within #{options.expiry} days of registration to activate your account:
+    table.btn.btn-primary(role='presentation', border='0', cellpadding='0', cellspacing='0')
+        tbody
+            tr
+                td(align='left')
+                    table(role='presentation', border='0', cellpadding='0', cellspacing='0')
+                        tbody
+                            tr
+                                td
+                                    a(href=`${url}`, target='_blank') Activate Your Account
+    p If you need any help with booking your next recipe meal, please don't hesitate to contact us!
+    p - Iyk Faiz, CEO
