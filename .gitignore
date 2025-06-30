@@ -1,5 +1,6 @@
 node_modules
 .git_backup_before_rewrite
 config/gcs-config.json
+.git_backup_before_rewrite
 *.log
 *.env
