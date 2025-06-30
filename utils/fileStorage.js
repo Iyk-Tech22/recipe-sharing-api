@@ -5,6 +5,7 @@ const sharp = require("sharp");
 const firebaseAdmin = require("firebase-admin");
 
 const AppError = require("./appError");
+// eslint-disable-next-line node/no-unpublished-require
 const serviceAccount = require("../config/gcs-config.json");
 
 class FileStorage {
