@@ -32,7 +32,6 @@ class FileStorage {
 
     try {
       await file.delete();
-      console.log(`File ${fileName} deleted successfully.`);
     } catch (error) {
       throw new AppError(
         500,
