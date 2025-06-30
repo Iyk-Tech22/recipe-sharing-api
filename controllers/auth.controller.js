@@ -88,3 +88,36 @@ exports.confirmEmail = asyncHandler(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
   createSendToken(res, user);
 });
+
+exports.protect = asyncHandler(async (req, res, next) => {
+  if (
+    !req.headers.authorization ||
+    !req.headers.authorization.startsWith("Bearer")
+  ) {
+    return next(
+      new AppError(401, "You are not logged in! Please log in to get access."),
+    );
+  }
+
+  const token = req.headers.authorization.split(" ")[1];
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const currentUser = await User.findById(decoded.id);
+
+  if (!currentUser) {
+    return next(
+      new AppError(
+        401,
+        "The user belonging to this token does no longer exist.",
+      ),
+    );
+  }
+
+  if (currentUser.changedPasswordAfter(decoded.iat)) {
+    return next(
+      new AppError(401, "User recently changed password! Please log in again."),
+    );
+  }
+
+  req.user = currentUser;
+  next();
+});

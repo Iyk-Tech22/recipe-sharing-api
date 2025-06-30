@@ -14,6 +14,7 @@ const userRoute = require("./routes/user.route");
 const app = express();
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: "*",

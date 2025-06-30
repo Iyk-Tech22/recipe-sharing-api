@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema({
     default: false,
     select: false,
   },
+  photo: {
+    type: String,
+    default: "default.jpg",
+  },
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
@@ -98,6 +102,17 @@ userSchema.methods.createToken = function (type) {
 
 userSchema.statics.createHash = function (token) {
   return crypto.createHash("sha256").update(token).digest("hex");
+};
+
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10,
+    );
+    return JWTTimestamp < changedTimestamp;
+  }
+  return false;
 };
 
 module.exports = mongoose.model("User", userSchema);
