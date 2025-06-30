@@ -1,6 +1,6 @@
 # Recipe Share API
 
-The "Recipe Sharing API" project aims to develop an API that allows users to share, search for, and interact with recipes. Users will be able to create accounts, save their favorite recipes, and engage with the community through rating and commenting on recipes.
+The **Recipe Sharing API** project aims to develop an API that allows users to share, search for, and interact with recipes. Users will be able to create accounts, save their favorite recipes, and engage with the community through rating and commenting on recipes.
 
 ## 🎯 Objective
 
