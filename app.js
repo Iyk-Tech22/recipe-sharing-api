@@ -10,6 +10,7 @@ const compression = require("compression");
 const globalErrorHandler = require("./middlewares/error-handler.middleware");
 const AppError = require("./utils/appError");
 const userRoute = require("./routes/user.route");
+const recipeRoute = require("./routes/recipe.route");
 
 const app = express();
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
@@ -36,6 +37,7 @@ app.use(compression());
 
 //  Routes
 app.use("/api/v1/users", userRoute);
+app.use("/api/v1/recipes", recipeRoute);
 
 app.use((req, res, next) => {
   next(new AppError(404, `Can't find ${req.originalUrl} on this server!`));

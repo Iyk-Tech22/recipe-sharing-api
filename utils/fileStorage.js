@@ -68,10 +68,10 @@ class FileStorage {
   processFileUpload() {
     const self = this;
     return async (req, res, next) => {
-      let result;
+      let results;
       if (req.file) {
         const buffer = await self.resizeImage(req.file.buffer, 500, 500);
-        result = [
+        results = [
           {
             originalname: req.file.originalname,
             buffer,
@@ -80,7 +80,7 @@ class FileStorage {
       }
 
       if (req.files) {
-        result = await Promise.all(
+        results = await Promise.all(
           req.files.map(async (file) => {
             const buffer = await self.resizeImage(file.buffer, 500, 500);
             return {
@@ -91,13 +91,13 @@ class FileStorage {
         );
       }
 
-      if (!result || result.length === 0) {
-        return next(new AppError(400, "No files uploaded"));
+      if (!results || results.length === 0) {
+        return next(new AppError(400, `No file uploaded`));
       }
 
       let fileName;
       const bucket = firebaseAdmin.storage().bucket();
-      const uploadPromises = result.map(async (file) => {
+      const uploadPromises = results.map(async (file) => {
         const folderName = process.env.GCS_FOLDER_NAME || "recipe-sharing-api";
         fileName = `${Date.now()}-${file.originalname}`;
         const gcsFile = bucket.file(`${folderName}/${fileName}`);

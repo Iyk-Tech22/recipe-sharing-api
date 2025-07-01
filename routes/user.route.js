@@ -2,9 +2,12 @@ const express = require("express");
 const authController = require("../controllers/auth.controller");
 const userController = require("../controllers/user.controller");
 const FileStorage = require("../utils/fileStorage");
+const recipeRouter = require("./recipe.route");
 
 const router = express.Router();
 const fileStorage = new FileStorage();
+
+router.use("/:userId/recipes", recipeRouter);
 
 router.post("/signup", authController.signup);
 router.post("/login", authController.login);
